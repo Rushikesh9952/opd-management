@@ -74,6 +74,10 @@ public class DiagnosticsController {
 	@PutMapping("/{id}")
 	public ResponseEntity<Diagnostics> updateDiagnostic(@PathVariable("id") int id,@RequestBody DiagnosticsDtos diagnosticsDtos ){
 		Diagnostics diagnostics=new Diagnostics();
+		if(diagnostics==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
 		diagnostics.setName(diagnosticsDtos.getName());
 		diagnostics.setDatetime(diagnosticsDtos.getDatetime());
 		 

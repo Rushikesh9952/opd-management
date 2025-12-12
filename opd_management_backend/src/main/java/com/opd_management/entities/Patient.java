@@ -22,11 +22,11 @@ public class Patient {
 	private String patient_name;
 	private int age;
 	private String gender;
-	private long mobileno;
+	private String mobileno;
 	private String address;
 	private String blood_group;
 	private int height;
-	private String smkoking;
+	private String smoking;
 	private String alcohol;
 	private String tobacco;
 	private Date created_id;
@@ -66,10 +66,10 @@ public class Patient {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public long getMobileno() {
+	public String getMobileno() {
 		return mobileno;
 	}
-	public void setMobileno(long mobileno) {
+	public void setMobileno(String mobileno) {
 		this.mobileno = mobileno;
 	}
 	public String getAddress() {
@@ -90,11 +90,11 @@ public class Patient {
 	public void setHeight(int height) {
 		this.height = height;
 	}
-	public String getSmkoking() {
-		return smkoking;
+	public String getSmoking() {
+		return smoking;
 	}
-	public void setSmkoking(String smkoking) {
-		this.smkoking = smkoking;
+	public void setSmoking(String smoking) {
+		this.smoking = smoking;
 	}
 	public String getAlcohol() {
 		return alcohol;
@@ -114,8 +114,8 @@ public class Patient {
 	public void setCreated_id(Date created_id) {
 		this.created_id = created_id;
 	}
-	public Patient(int id, Doctor doctor_id, String patient_name, int age, String gender, long mobileno, String address,
-			String blood_group, int height, String smkoking, String alcohol, String tobacco, Date created_id) {
+	public Patient(int id, Doctor doctor_id, String patient_name, int age, String gender, String mobileno, String address,
+			String blood_group, int height, String smoking, String alcohol, String tobacco, Date created_id) {
 		super();
 		this.id = id;
 		this.doctor_id = doctor_id;
@@ -126,7 +126,7 @@ public class Patient {
 		this.address = address;
 		this.blood_group = blood_group;
 		this.height = height;
-		this.smkoking = smkoking;
+		this.smoking = smoking;
 		this.alcohol = alcohol;
 		this.tobacco = tobacco;
 		this.created_id = created_id;

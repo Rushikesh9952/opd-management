@@ -22,6 +22,8 @@ import com.opd_management.dtos.DoctorDtos;
 import com.opd_management.entities.Doctor;
 import com.opd_management.services.DoctorService;
 
+import jakarta.validation.Valid;
+
 @RequestMapping("/doctor")
 @RestController
 public class DoctorController {
@@ -30,7 +32,7 @@ public class DoctorController {
 	private DoctorService doctorService;
 	
 	@PostMapping("/")
-	public ResponseEntity<Doctor> saveDoctor(@RequestBody DoctorDtos doctorDtos){
+	public ResponseEntity<Doctor> saveDoctor(@Valid @RequestBody DoctorDtos doctorDtos){
 		Doctor doctor = new Doctor();
 		doctor.setAddress(doctorDtos.getAddress());
 		doctor.setClinic_name(doctorDtos.getClinic_name());
@@ -68,7 +70,7 @@ public class DoctorController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Doctor> updateDoctortpById(@PathVariable("id") int id,@RequestBody DoctorDtos doctorDtos){
+	public ResponseEntity<Doctor> updateDoctortpById(@Valid @PathVariable("id") int id,@RequestBody DoctorDtos doctorDtos){
 		Doctor doctor=doctorService.getById(id);
 		if(doctor==null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

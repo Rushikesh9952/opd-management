@@ -63,7 +63,9 @@ public class MedicineController {
 	@PutMapping("/{id}")
 	public ResponseEntity<Medicine> updateMedicine(@PathVariable("id") int id,@RequestBody MedicineDtos medicineDtos){
 		Medicine medicine=medicineService.getById(id);
-		
+		if(medicine==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 		medicine.setMedicine_name(medicineDtos.getMedicine_name());
 		medicine.setType(medicineDtos.getType());
 		

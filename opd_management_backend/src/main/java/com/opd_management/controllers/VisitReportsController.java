@@ -68,6 +68,9 @@ public class VisitReportsController {
 	@PutMapping("/{id}")
 	public ResponseEntity<VisitReports> updateVisitReports(@PathVariable("id") int id,@RequestBody VisitReportsDtos visitReportsDtos){
 		VisitReports visitReports=new VisitReports();
+		if(visitReports==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 		visitReports.setCreated_at(visitReportsDtos.getCreated_at());
 		visitReports.setFile_name(visitReportsDtos.getFile_name());
 		visitReports.setFile_type(visitReportsDtos.getFile_type());

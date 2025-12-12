@@ -2,15 +2,38 @@ package com.opd_management.dtos;
 
 import java.sql.Date;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 public class DoctorDtos {
+	@NotBlank(message = "name is required")
+	@Size(min=3,max=50,message = "name must be between 3 to 50 character")
 	private String name;
+	
+	@NotBlank(message = "email is required")
+	@Email(message = "enter valid email")
 	private String email;
 	
+	@NotBlank(message = "password is required")
+	@Size(min=4,message = "Password must be have at least 4 character")
 	private String password;
+	
+	@NotBlank(message = "specialization is required")
 	private String specialization;
+	
+	@NotBlank(message = "clinic name is required")
 	private String clinic_name;
+	
+	@NotBlank(message = "address must be is required")
 	private String address;
-	private long mobno;
+	
+	@NotNull(message = "mobile no is required")
+	@Pattern(regexp = "^[0-9]{10}$", message = "Mobile number must be 10 digits")
+	private String mobno;
+	
 	private String token;
 	private String status;
 	private Date created_at;
@@ -52,10 +75,10 @@ public class DoctorDtos {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public long getMobno() {
+	public String getMobno() {
 		return mobno;
 	}
-	public void setMobno(long mobno) {
+	public void setMobno(String mobno) {
 		this.mobno = mobno;
 	}
 	public String getToken() {

@@ -113,6 +113,9 @@ public class VisitController {
 	@PutMapping("/{id}")
 	public ResponseEntity<Visit> updateVisit(@PathVariable("id") int id,@RequestBody VisitDtos visitDtos){
 		Visit visit=visitService.getById(id);
+		if(visit==null) {
+			return new ResponseEntity<>(visit,HttpStatus.NOT_FOUND);
+		}
 		
 		Doctor doctor=doctorService.getById(visitDtos.getDoctor_id());
 		visit.setDoctor_id(doctor);

@@ -70,6 +70,9 @@ public class ReferralCenterController {
 	@PutMapping("/{id}")
 	public ResponseEntity<ReferralCenter> updateReferralCenter(@PathVariable("id") int id,@RequestBody ReferralCenterDtos referralCenterDtos){
 		ReferralCenter referralCenter= new ReferralCenter();
+		if(referralCenter==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 		referralCenter.setAddress(referralCenterDtos.getAddress());
 		referralCenter.setContact_info(referralCenterDtos.getContact_info());
 		referralCenter.setCreated_at(referralCenterDtos.getCreated_at());

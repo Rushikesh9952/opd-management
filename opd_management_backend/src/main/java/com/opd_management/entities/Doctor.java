@@ -7,9 +7,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
-@Table(name="doctors")
+@Table(name="doctors",    
+uniqueConstraints = @UniqueConstraint(columnNames = "email")
+)
 public class Doctor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +23,7 @@ public class Doctor {
 	private String specialization;
 	private String clinic_name;
 	private String address;
-	private long mobno;
+	private String mobno;
 	private String token;
 	private String status;
 	private Date created_at;
@@ -69,10 +72,10 @@ public class Doctor {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public long getMobno() {
+	public String getMobno() {
 		return mobno;
 	}
-	public void setMobno(long mobno) {
+	public void setMobno(String mobno) {
 		this.mobno = mobno;
 	}
 	public String getToken() {
@@ -106,7 +109,7 @@ public class Doctor {
 	
 	//constructor using fields
 	public Doctor(int id, String name, String email, String password, String specialization, String clinic_name,
-			String address, long mobno, String token, String status, Date created_at, Date updated_at) {
+			String address, String mobno, String token, String status, Date created_at, Date updated_at) {
 		super();
 		this.id = id;
 		this.name = name;

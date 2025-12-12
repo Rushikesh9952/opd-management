@@ -65,6 +65,9 @@ public class TestMasterController {
 	@PutMapping("/{id}")
 	public ResponseEntity<TestMaster> updateTestMaster(@PathVariable("id") int id,@RequestBody TestMasterDtos testMasterDtos){
 		TestMaster testMaster=testMasterService.getByID(id);
+		if(testMaster==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 		testMaster.setTest_name(testMasterDtos.getTest_name());
 		testMaster.setNormal_range(testMasterDtos.getNormal_range());
 		testMaster.setTest_name(testMasterDtos.getTest_name());

@@ -20,9 +20,11 @@ import com.opd_management.entities.Patient;
 import com.opd_management.services.DoctorService;
 import com.opd_management.services.PatientService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/patient")
-public class PatientController  {
+public class PatientController  { 
 	
 	@Autowired
 	private PatientService patientService;
@@ -40,7 +42,7 @@ public class PatientController  {
 	}
 	
 	@PostMapping("/")
-	public ResponseEntity<Patient> savaPatient(@RequestBody PatientDtos patientDtos ){
+	public ResponseEntity<Patient> savaPatient(@Valid @RequestBody PatientDtos patientDtos ){
 		Patient patient = new Patient();
 		patient.setAddress(patientDtos.getAddress());
 		patient.setAge(patientDtos.getAge());
@@ -55,7 +57,7 @@ public class PatientController  {
 		patient.setMobileno(patientDtos.getMobileno());
 		patient.setPatient_name(patientDtos.getPatient_name());
 		patient.setTobacco(patientDtos.getTobacco());
-		patient.setSmkoking(patientDtos.getSmkoking());
+		patient.setSmoking(patientDtos.getSmoking());
 		
 		Patient savePatient=patientService.save(patient);
 		return new ResponseEntity<>(savePatient ,HttpStatus.ACCEPTED);
@@ -72,9 +74,11 @@ public class PatientController  {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Patient> updatePatient(@PathVariable("id") int id,@RequestBody PatientDtos patientDtos){
+	public ResponseEntity<Patient> updatePatient(@Valid @PathVariable("id") int id,@RequestBody PatientDtos patientDtos){
 		Patient patient=patientService.getById(id);
-		
+		if(patient==null) {
+			return new ResponseEntity<>(patient,HttpStatus.NOT_FOUND);
+		}
 		patient.setAddress(patientDtos.getAddress());
 		patient.setAge(patientDtos.getAge());
 		patient.setAlcohol(patientDtos.getAlcohol());
@@ -88,7 +92,7 @@ public class PatientController  {
 		patient.setMobileno(patientDtos.getMobileno());
 		patient.setPatient_name(patientDtos.getPatient_name());
 		patient.setTobacco(patientDtos.getTobacco());
-		patient.setSmkoking(patientDtos.getSmkoking());
+		patient.setSmoking(patientDtos.getSmoking());
 		
 		Patient updatedPatient=patientService.save(patient);
 		return new ResponseEntity<>(updatedPatient ,HttpStatus.ACCEPTED);

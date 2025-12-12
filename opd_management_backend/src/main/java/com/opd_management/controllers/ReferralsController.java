@@ -94,6 +94,9 @@ public class ReferralsController {
 	@PutMapping("/{id}")
 	public ResponseEntity<Referrals> updateReferrals(@PathVariable("id") int id,@RequestBody ReferralsDtos referralsDtos){
 		Referrals referrals=referralsService.getById(id);
+		if(referrals==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 		referrals.setCreated_at(referralsDtos.getCreated_at());
 		referrals.setDetails(referralsDtos.getDetails());
 		referrals.setNote_type(referralsDtos.getNote_type());
