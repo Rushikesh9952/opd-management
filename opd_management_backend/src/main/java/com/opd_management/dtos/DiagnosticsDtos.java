@@ -2,17 +2,30 @@ package com.opd_management.dtos;
 
 import java.sql.Date;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+
 public class DiagnosticsDtos {
-	
+	@NotNull(message = "Name is required")
 	private String name;
+	
+	@NotNull(message = "Doctor ID is required")
+    @Min(value = 1, message = "Doctor ID must be greater than 0")
 	private int doctor_id;
+	
+	@NotNull(message = "Visit ID is required")
+    @Min(value = 1, message = "Visit ID must be greater than 0")
 	private int visit_id;
+	
+	@NotNull(message = "Datetime is required")
+    @PastOrPresent(message = "Datetime cannot be in the future")
 	private Date datetime;
 	
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
+	public void setName(String name) { 
 		this.name = name;
 	}
 	public int getDoctor_id() {

@@ -22,6 +22,8 @@ import com.opd_management.services.DiagnosticsService;
 import com.opd_management.services.DoctorService;
 import com.opd_management.services.VisitService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/diagnostics")  
 public class DiagnosticsController {
@@ -36,7 +38,7 @@ public class DiagnosticsController {
 	private DiagnosticsService diagnosticsService;
 	
 	@PostMapping("/")
-	public ResponseEntity<Diagnostics> saveDiagnostics(@RequestBody DiagnosticsDtos diagnosticsDtos){
+	public ResponseEntity<Diagnostics> saveDiagnostics(@Valid @RequestBody DiagnosticsDtos diagnosticsDtos){
 		Diagnostics diagnostics=new Diagnostics();
 		diagnostics.setName(diagnosticsDtos.getName());
 		diagnostics.setDatetime(diagnosticsDtos.getDatetime());
@@ -72,8 +74,8 @@ public class DiagnosticsController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Diagnostics> updateDiagnostic(@PathVariable("id") int id,@RequestBody DiagnosticsDtos diagnosticsDtos ){
-		Diagnostics diagnostics=new Diagnostics();
+	public ResponseEntity<Diagnostics> updateDiagnostic(@Valid @PathVariable("id") int id,@RequestBody DiagnosticsDtos diagnosticsDtos ){
+		Diagnostics diagnostics=diagnosticsService.getById(id);
 		if(diagnostics==null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

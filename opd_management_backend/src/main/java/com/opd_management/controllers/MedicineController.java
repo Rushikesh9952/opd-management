@@ -20,6 +20,8 @@ import com.opd_management.entities.Medicine;
 import com.opd_management.services.DoctorService;
 import com.opd_management.services.MedicineService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/medicine")
 public class MedicineController {
@@ -31,7 +33,7 @@ public class MedicineController {
 	private DoctorService doctorService;
 	
 	@PostMapping("/")
-	public ResponseEntity<Medicine> saveMedicine(@RequestBody MedicineDtos medicineDtos){
+	public ResponseEntity<Medicine> saveMedicine(@Valid @RequestBody MedicineDtos medicineDtos){
 		Medicine medicine=new Medicine();
 		medicine.setMedicine_name(medicineDtos.getMedicine_name());
 		medicine.setType(medicineDtos.getType());
@@ -61,7 +63,7 @@ public class MedicineController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Medicine> updateMedicine(@PathVariable("id") int id,@RequestBody MedicineDtos medicineDtos){
+	public ResponseEntity<Medicine> updateMedicine(@Valid @PathVariable("id") int id,@RequestBody MedicineDtos medicineDtos){
 		Medicine medicine=medicineService.getById(id);
 		if(medicine==null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -69,7 +71,7 @@ public class MedicineController {
 		medicine.setMedicine_name(medicineDtos.getMedicine_name());
 		medicine.setType(medicineDtos.getType());
 		
-		Doctor doctor=doctorService.getById(medicineDtos.getDoctor_id());
+		Doctor doctor=doctorService.getById(medicineDtos.getDoctor_id()); 
 		medicine.setDoctor_id(doctor);
 		
 		Medicine updateMedicine= medicineService.save(medicine);

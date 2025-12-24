@@ -9,6 +9,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name="bills")
@@ -16,13 +20,41 @@ public class Bill {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@NotNull(message = "consultation fee is required")
+	@Min(value = 0, message = "Consultation fee cannot be negative")
 	private int consultation_fee;
+	@NotBlank(message = "Payment status is required")
+	@Pattern(
+	    regexp = "PAID|UNPAID|PARTIAL",
+	    message = "Payment status must be PAID, UNPAID or PARTIAL"
+	)
 	private String payment_status;
+	@NotBlank(message = "payment mode is required")
+	@Pattern(
+		    regexp = "CASH|CARD|UPI|ONLINE",
+		    message = "Payment mode must be CASH, CARD, UPI or ONLINE"
+	)
 	private String payment_mode;
+	@NotNull(message = "Concession is required")
+	@Min(value = 0, message = "Concession cannot be negative")
 	private int concession;
+	
+
+	@NotNull(message = "Payment amount is required")
+	@Min(value = 0, message = "Payment amount cannot be negative")
 	private int payment_amount;
+	
+	@NotNull(message = "Total amount is required")
+	@Min(value = 0, message = "Total amount cannot be negative")
 	private int total_amount;
+	
+	@NotNull(message = "Pending amount is required")
+	@Min(value = 0, message = "Pending amount cannot be negative")
 	private int pending_amount;
+	
+	
+	@NotBlank(message = "Created date is required")
 	private String created_at;
 	
 	@ManyToOne

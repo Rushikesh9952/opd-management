@@ -34,7 +34,9 @@ public class DoctorDtos {
 	@Pattern(regexp = "^[0-9]{10}$", message = "Mobile number must be 10 digits")
 	private String mobno;
 	
+	@NotNull(message = "mobile no is required")
 	private String token;
+	
 	private String status;
 	private Date created_at;
 	private Date updated_at;

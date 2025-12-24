@@ -20,6 +20,8 @@ import com.opd_management.entities.Visit;
 import com.opd_management.services.BillService;
 import com.opd_management.services.VisitService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/bill")
 public class BillController {
@@ -30,7 +32,7 @@ public class BillController {
 	private VisitService visitService;
 	
 	@PostMapping("/")
-	public ResponseEntity<Bill> saveBill(@RequestBody BillDtos billDtos){
+	public ResponseEntity<Bill> saveBill(@Valid @RequestBody BillDtos billDtos){
 		Bill bill =new Bill();
 		bill.setConcession(billDtos.getConcession());
 		bill.setConsultation_fee(billDtos.getConsultation_fee());
@@ -71,7 +73,7 @@ public class BillController {
 	}
  	
 	@PutMapping("/{id}")
-	public ResponseEntity<Bill> updateBillById(@PathVariable("id") int id, @RequestBody BillDtos billDtos){
+	public ResponseEntity<Bill> updateBillById(@Valid @PathVariable("id") int id, @RequestBody BillDtos billDtos){
 		
 		Bill bill = billService.getById(id);
 		if(bill == null) {
